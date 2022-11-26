@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import ReactMarkdown from 'react-markdown';
 import ReactDOMServer from 'react-dom/server';
 
-const AddNote = () => {
+const AddPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = React.useState('');
@@ -52,10 +52,10 @@ const AddNote = () => {
         tags: tags.split(','),
       };
       const { data } = isEditing
-        ? await axios.patch(`/notes/${id}`, fields)
-        : await axios.post('/notes', fields);
+        ? await axios.patch(`/posts/${id}`, fields)
+        : await axios.post('/posts', fields);
       const _id = isEditing ? id : data._id;
-      navigate(`/notes/${_id}`);
+      navigate(`/posts/${_id}`);
     } catch (err) {
       console.warn(err);
       alert('Ошибка');
@@ -64,7 +64,7 @@ const AddNote = () => {
 
   React.useEffect(() => {
     if (id) {
-      axios.get(`/notes/${id}`).then(({ data }) => {
+      axios.get(`/posts/${id}`).then(({ data }) => {
         setTitle(data.title);
         setContent(data.content);
         setImageUrl(data.imageUrl);
@@ -140,4 +140,4 @@ const AddNote = () => {
   );
 };
 
-export default AddNote;
+export default AddPost;

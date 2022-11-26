@@ -1,5 +1,5 @@
 import React from 'react';
-import Posts from './Posts';
+import Posts from './ContentList/Posts';
 
 const Home = () => {
   return (

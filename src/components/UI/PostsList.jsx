@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { fetchPosts, fetchRemovePost } from '../../redux/slices/posts';
-import IconEdit from '../Icons/IconEdit';
+import IconPost from '../Icons/IconPost';
 import Post from '../Post/Post';
+import FloatingButton from './FloatingButton';
 import Menu from './Menu';
 
 const PostsList = ({ posts }) => {
@@ -25,8 +26,10 @@ const PostsList = ({ posts }) => {
           title={post.title}
           content={post.content}
           user={post.user}
+          createdAt={post.createdAt}
         />
       ))}
+      <FloatingButton link={[{ title: 'Создать статью', url: '/add-post', icon: <IconPost /> }]} />
     </section>
   );
 };

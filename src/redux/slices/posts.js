@@ -12,13 +12,13 @@ export const fetchPosts = createAsyncThunk('posts/fetchNotes', async () => {
 });
 
 export const fetchTags = createAsyncThunk('posts/fetchTags', async () => {
-  const { data } = await axios.get('/tags');
+  const { data } = await axios.get('/ptags');
   return data;
 });
 
-export const fetchRemovePost = createAsyncThunk('posts/fetchRemoveNote', async (id) => {
-  axios.delete(`/posts/${id}`);
-});
+export const fetchRemovePost = createAsyncThunk('posts/fetchRemoveNote', async (id) =>
+  axios.delete(`/posts/${id}`)
+);
 const initialState = {
   posts: {
     items: [],

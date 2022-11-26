@@ -6,13 +6,13 @@ export const getMyId = (id) => {
   myId = id;
 };
 
-export const fetchNotes = createAsyncThunk('notes/fetchNotes', async (query) => {
+export const fetchNotes = createAsyncThunk('notes/fetchNotes', async () => {
   const { data } = await axios.get('/notes');
   return data.filter((el) => el.user._id === myId);
 });
 
 export const fetchTags = createAsyncThunk('notes/fetchTags', async () => {
-  const { data } = await axios.get('/tags');
+  const { data } = await axios.get('/ntags');
   return data;
 });
 

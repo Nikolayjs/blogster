@@ -3,13 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { setModal } from '../../redux/slices/modal';
 
-const Modal = ({ text, onRemove }) => {
+const Modal = ({ text, onRemove, id }) => {
   const dispatch = useDispatch();
   const modal = useSelector((state) => state.modal);
   const handleCloseModal = () => {
     dispatch(setModal());
   };
-
   return (
     <>
       <div

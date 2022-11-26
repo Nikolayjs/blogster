@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchNotes, fetchTags } from '../../redux/slices/notes';
+import { fetchNotes, fetchTags } from '../../../redux/slices/notes';
 import { v4 as uuidv4 } from 'uuid';
-import Note from '../Note/Note';
-import TextField from '../UI/TextField';
-import { useContent } from '../../hooks/useContent';
+import Note from '../../Note/Note';
+import TextField from '../../UI/TextField';
+import { useContent } from '../../../hooks/useContent';
 import { useNavigate } from 'react-router-dom';
-import FloatingButton from '../UI/FloatingButton';
-import IconPost from '../Icons/IconPost';
+import FloatingButton from '../../UI/FloatingButton';
+import IconPost from '../../Icons/IconPost';
 
 const Notes = () => {
   const dispatch = useDispatch();
