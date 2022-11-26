@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 const initialState = {
   isOpen: false,
   isConfirm: false,
+  id: '',
 };
 
 const modalSlice = createSlice({
@@ -14,8 +16,11 @@ const modalSlice = createSlice({
     setConfirm: (state) => {
       state.isConfirm = !state.isConfirm;
     },
+    setId: (state, id) => {
+      state.id = id.payload;
+    },
   },
 });
 
 export const modalReducer = modalSlice.reducer;
-export const { setModal, setConfirm } = modalSlice.actions;
+export const { setModal, setConfirm, setId } = modalSlice.actions;

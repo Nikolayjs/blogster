@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { fetchPosts, fetchRemovePost } from '../../redux/slices/posts';
 import IconEdit from '../Icons/IconEdit';
-import Post from '../Post.jsx/Post';
+import Post from '../Post/Post';
 import Menu from './Menu';
 
 const PostsList = ({ posts }) => {

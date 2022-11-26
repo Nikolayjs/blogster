@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchNotes, fetchRemoveNote } from '../../redux/slices/notes';
+import { fetchRemoveNote } from '../../redux/slices/notes';
 import Skeleton from './Skeleton';
 import { Link } from 'react-router-dom';
 import Button from '../UI/Button';
@@ -8,7 +8,7 @@ import IconDelete from '../Icons/IconDelete';
 import IconEdit from '../Icons/IconEdit';
 import Modal from '../UI/Modal';
 
-import { setModal, setConfirm } from '../../redux/slices/modal';
+import { setModal, setConfirm, setId } from '../../redux/slices/modal';
 
 const Note = ({
   _id,
@@ -25,35 +25,21 @@ const Note = ({
   const date = new Date(createdAt);
   const dispatch = useDispatch();
   const modal = useSelector((state) => state.modal);
-  // const [nid, setnid] = useState();
 
-  const handleModal = () => {
-    console.log('f', _id);
-    // setnid(id);
+  const handleModal = (id) => {
+    dispatch(setId(id));
     dispatch(setModal());
-    // dispatch(setConfirm());
-    // console.log(modal.isConfirm);
   };
-  // useEffect(() => {
-  //   console.log(modal.isConfirm);
-  //   if (modal.isConfirm) {
-  //     console.log('useEf', nid);
-  //     dispatch(setConfirm());
-  //     // dispatch(fetchRemoveNote(id));
-  //   }
-  // }, [modal.isOpen]);
 
-  const onClickRemove = (id) => {
-    console.log(modal.isConfirm && modal.isOpen);
+  const onClickRemove = () => {
     dispatch(setModal());
     dispatch(setConfirm());
-    dispatch(fetchRemoveNote(id));
+    dispatch(fetchRemoveNote(modal.id));
   };
 
   if (isLoading) {
     return <Skeleton />;
   }
-
   return (
     <>
       {isFullNote ? (
@@ -94,7 +80,7 @@ const Note = ({
         </main>
       ) : (
         <>
-          <Modal text="Удалить заметку?" onRemove={() => onClickRemove(_id)} />
+          <Modal text="Удалить заметку?" onRemove={onClickRemove} />
           <li className="sm:py-2 mt-1 border-b-2 border-gray-600 hover:border-gray-500">
             <div className="flex items-center space-x-4">
               <div className="flex-shrink-0">
@@ -122,7 +108,7 @@ const Note = ({
                 <Link to={`/notes/${_id}/edit`}>
                   <IconEdit />
                 </Link>
-                <IconDelete onClick={handleModal} />
+                <IconDelete onClick={() => handleModal(_id)} />
               </div>
             </div>
           </li>

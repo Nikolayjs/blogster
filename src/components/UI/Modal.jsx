@@ -1,17 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setModal, setConfirm } from '../../redux/slices/modal';
+import { setModal } from '../../redux/slices/modal';
 
 const Modal = ({ text, onRemove }) => {
   const dispatch = useDispatch();
   const modal = useSelector((state) => state.modal);
-
-  const handleRemove = () => {
-    dispatch(setConfirm());
-    dispatch(setModal());
-  };
-
   const handleCloseModal = () => {
     dispatch(setModal());
   };
