@@ -16,6 +16,7 @@ const Post = ({
   imageUrl,
   user,
   content,
+  description,
   viewsCount,
   commentsCount,
   tags,
@@ -109,7 +110,7 @@ const Post = ({
             <Link to={`/posts/${_id}`}>
               <div>
                 <h3 className="mb-2 dark:text-white text-gray-700 font-bold text-2xl">{title}</h3>
-                <p className="dark:text-slate-400 text-gray-700">{content}</p>
+                <p className="dark:text-slate-400 text-gray-700">{description}</p>
               </div>
             </Link>
             <div className="flex mt-3">

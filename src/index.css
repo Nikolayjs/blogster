@@ -31,6 +31,9 @@ p {
 code {
   @apply font-mono text-sm text-white;
 }
+pre {
+  @apply bg-blue-900 p-1 m-1 rounded-md;
+}
 
 blockquote p {
   @apply text-xl italic font-extrabold text-gray-900 dark:text-white;

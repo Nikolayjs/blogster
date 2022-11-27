@@ -22,7 +22,14 @@ const Posts = () => {
   }, []);
 
   if (posts.items.length === 0) {
-    return <PostSkeleton />;
+    return (
+      <>
+        <PostSkeleton />
+        <FloatingButton
+          link={[{ title: 'Создать статью', url: '/add-post', icon: <IconPost /> }]}
+        />
+      </>
+    );
   }
   return (
     <>
@@ -37,6 +44,7 @@ const Posts = () => {
                     key={post._id}
                     _id={post._id}
                     imageUrl={post.imageUrl}
+                    description={post.description}
                     title={post.title}
                     content={post.content}
                     user={post.user}

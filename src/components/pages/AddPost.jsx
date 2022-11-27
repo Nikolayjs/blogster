@@ -9,6 +9,7 @@ import SimpleMdeReact from 'react-simplemde-editor';
 import { v4 as uuidv4 } from 'uuid';
 import ReactMarkdown from 'react-markdown';
 import ReactDOMServer from 'react-dom/server';
+import { Axios, AxiosError } from 'axios';
 
 const AddPost = () => {
   const { id } = useParams();
@@ -18,6 +19,7 @@ const AddPost = () => {
   const isAuth = useSelector(selectIsAuth);
   const [content, setContent] = React.useState('');
   const [title, setTitle] = React.useState('');
+  const [description, setDescription] = React.useState('');
   const [tags, setTags] = React.useState([]);
   const inputFileRef = React.useRef(null);
   const isEditing = Boolean(id);
@@ -47,6 +49,7 @@ const AddPost = () => {
       setIsLoading(true);
       const fields = {
         title,
+        description,
         content,
         imageUrl,
         tags: tags.split(','),
@@ -66,6 +69,7 @@ const AddPost = () => {
     if (id) {
       axios.get(`/posts/${id}`).then(({ data }) => {
         setTitle(data.title);
+        setDescription(data.description);
         setContent(data.content);
         setImageUrl(data.imageUrl);
         setTags(data.tags.join(','));
@@ -97,7 +101,6 @@ const AddPost = () => {
   if (!window.localStorage.getItem('token') && !isAuth) {
     return <Navigate to="/" />;
   }
-
   return (
     <article className="mx-auto w-full max-w-5xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert mt-10">
       <Button className="mr-3 mb-2 w-1/4" onClick={() => inputFileRef.current.click()}>
@@ -120,6 +123,13 @@ const AddPost = () => {
           inputId="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+        />
+        <TextField
+          label="Описание"
+          style="mt-5 text-4xl"
+          inputId="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
         <TextField
           label="Теги"
