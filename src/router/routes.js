@@ -6,6 +6,7 @@ import Registration from '../components/pages/Registration';
 import AddNote from '../components/pages/AddNote';
 import FullPost from '../components/pages/FullPost';
 import AddPost from '../components/pages/AddPost';
+import UserInfo from '../components/pages/UserInfo';
 
 export const publicRoutes = [
   { path: '/', element: Home, url: '/', name: 'Главная' },
@@ -42,5 +43,11 @@ export const privateRoutes = [
     element: AddPost,
     url: '/posts/:id/edit',
     name: 'Редактировать статью',
+  },
+  {
+    path: '/user/:id',
+    element: UserInfo,
+    url: '/user/:id',
+    name: 'Личный кабинет',
   },
 ];

@@ -1,21 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Modal from '../UI/Modal';
-
-import { setModal, setConfirm, setId } from '../../redux/slices/modal';
-import { useDispatch } from 'react-redux';
-import { fetchRemovePost } from '../../redux/slices/posts';
 
 const Menu = ({ option }) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const handleOpen = () => {
-    document.onclick = setIsOpen(!isOpen);
     setIsOpen(!isOpen);
   };
 
   return (
-    <div className="px-4 pt-4">
+    <div className="px-4 pt-4" onMouseLeave={handleOpen}>
       <button
         onClick={handleOpen}
         className="inline-block absolute right-6 bottom-auto text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700  focus:outline-none  rounded-lg text-sm p-1.5"
@@ -40,7 +34,7 @@ const Menu = ({ option }) => {
       >
         <ul>
           {option.map((el) => (
-            <li key={el.name} onClick={handleOpen}>
+            <li key={el.name}>
               {el.link ? (
                 <Link
                   to={el.link}

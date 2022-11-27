@@ -9,7 +9,6 @@ import SimpleMdeReact from 'react-simplemde-editor';
 import { v4 as uuidv4 } from 'uuid';
 import ReactMarkdown from 'react-markdown';
 import ReactDOMServer from 'react-dom/server';
-import { Axios, AxiosError } from 'axios';
 
 const AddPost = () => {
   const { id } = useParams();
@@ -75,7 +74,7 @@ const AddPost = () => {
         setTags(data.tags.join(','));
       });
     }
-  }, []);
+  }, [id]);
 
   const options = React.useMemo(
     () => ({
@@ -83,7 +82,6 @@ const AddPost = () => {
       maxHeight: '400px',
       autofocus: true,
       placeholder: 'Введите текст',
-      status: false,
       status: ['lines', 'words'],
       sideBySideFullscreen: true,
       previewRender() {
@@ -112,7 +110,7 @@ const AddPost = () => {
           <Button className="mb-2" onClick={onClickRemove}>
             Удалить
           </Button>
-          <img src={`http://localhost:4000${imageUrl}`} className="w-full mb-10" />
+          <img src={`http://localhost:4000${imageUrl}`} className="w-full mb-10" alt="title" />
         </>
       )}
 

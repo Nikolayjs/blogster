@@ -6,6 +6,7 @@ import { logout, selectIsAuth } from '../../redux/slices/auth';
 const Navbar = () => {
   const [toogle, setToogle] = React.useState({ isOpen: true });
   const isAuth = useSelector(selectIsAuth);
+  const userData = useSelector((state) => state.auth.data);
   const dispatch = useDispatch();
   const hidden = 'hidden w-full md:block md:w-auto';
   const visible = 'w-full md:block md:w-auto';
@@ -71,6 +72,9 @@ const Navbar = () => {
               <>
                 <Link to="/notes" className="link">
                   Заметки
+                </Link>
+                <Link to={`/user/${userData._id}`} className="link">
+                  Личный кабинет
                 </Link>
                 <Link to="/" className="link" onClick={onClickLogout}>
                   Выйти
