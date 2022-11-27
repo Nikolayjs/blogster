@@ -36,7 +36,7 @@ pre {
 }
 
 blockquote p {
-  @apply text-xl italic font-extrabold text-gray-900 dark:text-white;
+  @apply text-lg italic font-extrabold text-gray-900 dark:text-white;
 }
 
 @layer components {

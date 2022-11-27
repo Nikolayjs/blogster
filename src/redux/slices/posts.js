@@ -8,7 +8,8 @@ export const getMyId = (id) => {
 
 export const fetchPosts = createAsyncThunk('posts/fetchNotes', async () => {
   const { data } = await axios.get('/posts');
-  return data;
+  const date = data.map((el) => ({ ...el, createdAt: Date.parse(el.createdAt) }));
+  return date.sort((a, b) => b.createdAt - a.createdAt);
 });
 
 export const fetchTags = createAsyncThunk('posts/fetchTags', async () => {
