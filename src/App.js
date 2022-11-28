@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAuthMe, selectIsAuth } from './redux/slices/auth';
 import Navbar from './components/UI/Navbar';
 import AppRouter from './AppRouter';
+import { ThemeProvider } from './theme/ThemeContext';
+import Background from './theme/Background';
 
 function App() {
   const dispatch = useDispatch();
@@ -13,11 +15,12 @@ function App() {
 
   return (
     <>
-      <Navbar />
-
-      <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 min-h-screen">
-        <AppRouter />
-      </main>
+      <ThemeProvider>
+        <Navbar />
+        <Background>
+          <AppRouter />
+        </Background>
+      </ThemeProvider>
     </>
   );
 }

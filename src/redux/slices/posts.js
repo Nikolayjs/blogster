@@ -6,7 +6,7 @@ export const getMyId = (id) => {
   myId = id;
 };
 
-export const fetchPosts = createAsyncThunk('posts/fetchNotes', async () => {
+export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
   const { data } = await axios.get('/posts');
   const date = data.map((el) => ({ ...el, createdAt: Date.parse(el.createdAt) }));
   return date.sort((a, b) => b.createdAt - a.createdAt);
@@ -17,7 +17,7 @@ export const fetchTags = createAsyncThunk('posts/fetchTags', async () => {
   return data;
 });
 
-export const fetchRemovePost = createAsyncThunk('posts/fetchRemoveNote', async (id) =>
+export const fetchRemovePost = createAsyncThunk('posts/fetchRemovePost', async (id) =>
   axios.delete(`/posts/${id}`)
 );
 const initialState = {

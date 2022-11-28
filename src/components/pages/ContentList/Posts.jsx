@@ -15,11 +15,13 @@ const Posts = () => {
   const { posts, tags } = useSelector((state) => state.posts);
 
   const isPostsLoading = posts.status === 'loading';
+
   const isTagsLoading = tags.status === 'loading';
   React.useEffect(() => {
     dispatch(fetchPosts());
     dispatch(fetchTags());
-  }, []);
+  }, [dispatch]);
+  console.log(isPostsLoading);
 
   if (posts.items.length === 0) {
     return (
@@ -49,7 +51,7 @@ const Posts = () => {
                     content={post.content}
                     user={post.user}
                     createdAt={post.createdAt}
-                    isEditable={userData._id === post.user._id}
+                    isEditable={userData?._id === post.user._id}
                   />
                 ))}
                 <FloatingButton

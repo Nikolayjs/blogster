@@ -32,7 +32,7 @@ const FullPost = () => {
       user={data.user}
       createdAt={data.createdAt}
       tags={data.tags}
-      isEditable={userData._id === data.user._id}
+      isEditable={userData?._id === data.user._id}
       isFullPost
     >
       <ReactMarkdown children={data.content} />

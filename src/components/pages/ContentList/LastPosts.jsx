@@ -38,7 +38,7 @@ const LastPosts = ({ posts }) => {
               <div className="flex mt-3">
                 <img
                   className="h-10 w-10 rounded-full mr-2 object-cover"
-                  src={posts.at(-1).user.avatarUrl}
+                  src={`http://localhost:4000${posts.at(-1).user.avatarUrl}`}
                   alt="author"
                 />
                 <div>
@@ -75,7 +75,7 @@ const LastPosts = ({ posts }) => {
               <div className="flex mt-3">
                 <img
                   className="h-10 w-10 rounded-full mr-2 object-cover"
-                  src={posts.at(-2).user.avatarUrl}
+                  src={`http://localhost:4000${posts.at(-2).user.avatarUrl}`}
                   alt="author"
                 />
                 <div>

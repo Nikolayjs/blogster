@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, selectIsAuth } from '../../redux/slices/auth';
+import ThemeToggle from '../../theme/ThemeToggle';
 
 const Navbar = () => {
   const [toogle, setToogle] = React.useState({ isOpen: true });
@@ -79,11 +80,15 @@ const Navbar = () => {
                 <Link to="/" className="link" onClick={onClickLogout}>
                   Выйти
                 </Link>
+                <ThemeToggle />
               </>
             ) : (
-              <Link to={'/login'} className="link">
-                Войти
-              </Link>
+              <>
+                <Link to="/login" className="link">
+                  Войти
+                </Link>
+                <ThemeToggle />
+              </>
             )}
           </ul>
         </div>

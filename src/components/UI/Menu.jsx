@@ -7,9 +7,14 @@ const Menu = ({ option }) => {
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
+  const handleClose = () => {
+    if (isOpen) {
+      setIsOpen(false);
+    }
+  };
 
   return (
-    <div className="px-4 pt-4" onMouseLeave={handleOpen}>
+    <div className="px-4 pt-4" onMouseLeave={handleClose}>
       <button
         onClick={handleOpen}
         className="inline-block absolute right-6 bottom-auto text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700  focus:outline-none  rounded-lg text-sm p-1.5"

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { fetchPosts, fetchRemovePost } from '../../redux/slices/posts';
 import Menu from '../UI/Menu';
@@ -97,7 +97,7 @@ const Post = ({
       ) : (
         <div
           key={uuidv4()}
-          className="relative block w-full lg:flex mb-10 rounded-tr-md rounded-tl-md hover:bg-gray-800 border-b-2 border-b-slate-700"
+          className="relative block w-full lg:flex mb-2 rounded-tr-md rounded-tl-md shadow-lg  hover:shadow-xl dark:hover:bg-gray-800 dark:border-b-2 dark:border-b-slate-700"
           to={`/posts/${_id}`}
         >
           <Modal text="Удалить статью?" onRemove={onClickRemove} />
@@ -116,7 +116,7 @@ const Post = ({
             <div className="flex mt-3">
               <img
                 className="h-10 w-10 rounded-full mr-2 object-cover"
-                src={user.avatarUrl}
+                src={`http://localhost:4000${user.avatarUrl}`}
                 alt="author"
               />
               <div>

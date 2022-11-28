@@ -81,7 +81,7 @@ const Note = ({
       ) : (
         <>
           <Modal text="Удалить заметку?" onRemove={onClickRemove} />
-          <li className="sm:py-2 mt-1 border-b-2 border-gray-600 hover:border-gray-500">
+          <li className="sm:py-2 p-2 mt-1 shadow-md dark:border-b-2 dark:border-gray-600 hover:shadow-lg dark:hover:border-gray-500">
             <div className="flex items-center space-x-4">
               <div className="flex-shrink-0">
                 <img
