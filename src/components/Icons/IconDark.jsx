@@ -9,7 +9,7 @@ const IconDark = ({ style, onClick }) => {
       strokeWidth={1.5}
       stroke="currentColor"
       onClick={onClick}
-      className={`${style} w-6 h-6`}
+      className={`${style} w-5 h-5`}
     >
       <path
         strokeLinecap="round"

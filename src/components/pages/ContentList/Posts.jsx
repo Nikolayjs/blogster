@@ -8,6 +8,7 @@ import PostSkeleton from '../../Post/PostSkeleton';
 import Post from '../../Post/Post';
 import FloatingButton from '../../UI/FloatingButton';
 import IconPost from '../../Icons/IconPost';
+import { fetchNotes } from '../../../redux/slices/notes';
 
 const Posts = () => {
   const dispatch = useDispatch();
@@ -15,13 +16,13 @@ const Posts = () => {
   const { posts, tags } = useSelector((state) => state.posts);
 
   const isPostsLoading = posts.status === 'loading';
-
   const isTagsLoading = tags.status === 'loading';
+
   React.useEffect(() => {
     dispatch(fetchPosts());
+    dispatch(fetchNotes());
     dispatch(fetchTags());
   }, [dispatch]);
-  console.log(isPostsLoading);
 
   if (posts.items.length === 0) {
     return (
@@ -54,9 +55,13 @@ const Posts = () => {
                     isEditable={userData?._id === post.user._id}
                   />
                 ))}
-                <FloatingButton
-                  link={[{ title: 'Создать статью', url: '/add-post', icon: <IconPost /> }]}
-                />
+                {userData?._id ? (
+                  <FloatingButton
+                    link={[{ title: 'Создать статью', url: '/add-post', icon: <IconPost /> }]}
+                  />
+                ) : (
+                  ''
+                )}
               </section>
               <Pagination posts={posts.items} />
             </div>

@@ -100,14 +100,14 @@ const UserInfo = () => {
   }
   console.log(isEdit);
   return (
-    <>
-      {isEdit ? (
-        <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 min-w-4xl mx-auto">
-          <div className="flex max-xl:inline-block justify-center self-center px-4 mx-auto w-full">
+    <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 min-w-4xl mx-auto">
+      <div className="flex max-xl:inline-block justify-center m-auto px-4 mx-auto w-full">
+        {isEdit ? (
+          <>
             <div className="py-4 px-3 ">
               <img
                 onClick={() => inputFileRef.current.click()}
-                className="w-16 h-16 rounded-full"
+                className="w-16 h-16 "
                 src={`http://localhost:4000${avatarUrl}`}
               />
               <input ref={inputFileRef} type="file" onChange={handleChangeAvatar} hidden />
@@ -151,18 +151,16 @@ const UserInfo = () => {
               <p className="text-lg font-bold">Дата регистрации: {getDate(userData.createdAt)}</p>
 
               <div className="w-auto">
-                <Button
-                  className="bg-blue-900 border-0 dark:hover:bg-blue-800 dark:active:bg-blue-700"
-                  onClick={onSubmit}
-                >
-                  Сохранить изменения
-                </Button>
+                <Button onClick={onSubmit}>Сохранить изменения</Button>
                 <Button onClick={handleEdit}>Отмена</Button>
               </div>
               <h3 className="mt-5">Мои статьи:</h3>
               <ul className="divide-y divide-gray-200 dark:divide-gray-700 mt-5">
                 {myPosts.map((post) => (
-                  <li key={post._id} className="p-2 pb-3 rounded-sm sm:pb-4 hover:bg-slate-700">
+                  <li
+                    key={post._id}
+                    className="p-2 pb-3 rounded-sm sm:pb-4 hover:shadow-lg dark:hover:bg-slate-700"
+                  >
                     <Link to={`/posts/${post._id}`}>
                       <div className="flex items-center space-x-4">
                         <div className="flex-shrink-0">
@@ -196,11 +194,9 @@ const UserInfo = () => {
                 ''
               )}
             </article>
-          </div>
-        </main>
-      ) : (
-        <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 min-w-4xl mx-auto">
-          <div className="flex max-xl:inline-block justify-center self-center px-4 mx-auto w-full">
+          </>
+        ) : (
+          <>
             <div className="py-4 px-3 ">
               <img className="w-16 h-16 rounded-full" src={`http://localhost:4000${avatarUrl}`} />
             </div>
@@ -214,17 +210,15 @@ const UserInfo = () => {
               </div>
               <p className="text-lg font-bold">Дата регистрации: {getDate(userData.createdAt)}</p>
               <div className="w-auto">
-                <Button
-                  className="bg-blue-900 border-0 dark:hover:bg-blue-800 dark:active:bg-blue-700"
-                  onClick={handleEdit}
-                >
-                  Редактировать
-                </Button>
+                <Button onClick={handleEdit}>Редактировать</Button>
               </div>
               <h3 className="mt-5">Мои статьи:</h3>
               <ul className="divide-y divide-gray-200 dark:divide-gray-700 mt-5">
                 {myPosts.map((post) => (
-                  <li key={post._id} className="p-2 pb-3 rounded-sm sm:pb-4 hover:bg-slate-700">
+                  <li
+                    key={post._id}
+                    className="p-2 pb-3 rounded-sm sm:pb-4 hover:shadow-lg dark:hover:bg-slate-700"
+                  >
                     <Link to={`/posts/${post._id}`}>
                       <div className="flex items-center space-x-4">
                         <div className="flex-shrink-0">
@@ -264,10 +258,10 @@ const UserInfo = () => {
               <h3 className="font-bold">Software Skills</h3>
               <p>{email}</p>
             </div>
-          </div>
-        </main>
-      )}
-    </>
+          </>
+        )}
+      </div>
+    </main>
   );
 };
 

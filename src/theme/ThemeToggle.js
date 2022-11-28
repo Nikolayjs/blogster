@@ -3,10 +3,10 @@ import IconDark from '../components/Icons/IconDark';
 import IconLight from '../components/Icons/IconLight';
 import { ThemeContext } from './ThemeContext';
 
-const ThemeToggle = () => {
+const ThemeToggle = ({ style }) => {
   const { theme, setTheme } = React.useContext(ThemeContext);
   return (
-    <div className="transition duration-500 ease-in-out rounded-full">
+    <div className={`${style} transition duration-500 ease-in-out rounded-full`}>
       {theme === 'dark' ? (
         <IconLight
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}

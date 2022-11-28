@@ -32,7 +32,7 @@ code {
   @apply font-mono text-sm text-white;
 }
 pre {
-  @apply bg-blue-900 p-1 m-1 rounded-md;
+  @apply bg-gray-700 p-1 m-1 rounded-md;
 }
 
 blockquote p {
@@ -51,10 +51,6 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-text-fill-color: white !important;
   transition: background-color 5000s ease-in-out 0s; /* выставляется желаемая задержка */
-}
-
-html::selection {
-  background-color: #00c !important;
 }
 
 .a-card {
@@ -77,47 +73,24 @@ html::selection {
   @apply block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent;
 }
 
-@media (prefers-color-scheme: dark) {
-  .editor-toolbar {
-    border: none !important;
-    color: #637083;
-  }
-
-  .separator {
-    border-left: 1px solid #637083 !important;
-    border-right: 1px solid #6d7a8f !important;
-  }
-
-  .editor-toolbar button:hover {
-    background-color: transparent !important;
-  }
-  .editor-toolbar button.active {
-    background-color: #374151 !important;
-  }
-
-  .CodeMirror {
-    border: 2px solid #5a6577 !important;
-    border-radius: 0px;
-    background-color: #374151 !important;
-    color: whitesmoke !important;
-  }
-  .cm-s-easymde .CodeMirror-cursor {
-    border-color: #ccc;
-  }
-
-  .editor-preview {
-    border: none !important;
-    border-top: 2px solid #5a6577 !important;
-    border-bottom: 2px solid #5a6577 !important;
-    border-right: 2px solid #5a6577 !important;
-  }
-
-  .editor-preview,
-  .editor-toolbar {
-    background-color: #374151 !important;
-    color: #abb6c5;
-    border-radius: none !important;
-  }
+.editor-toolbar {
+  @apply border-none text-gray-600 dark:text-gray-300;
+}
+.separator {
+  border-left: 1px solid #637083 !important;
+  border-right: 1px solid #6d7a8f !important;
+}
+.CodeMirror {
+  @apply bg-white dark:bg-gray-700 dark:text-white;
+}
+.cm-s-easymde .CodeMirror-cursor {
+  @apply dark:border-white border-black;
+}
+.editor-toolbar button:hover {
+  @apply bg-transparent dark:bg-transparent;
+}
+.editor-toolbar button.active {
+  @apply dark:bg-slate-600;
 }
 
 .CodeMirror {

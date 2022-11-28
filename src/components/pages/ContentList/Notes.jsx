@@ -8,6 +8,8 @@ import { useContent } from '../../../hooks/useContent';
 import { useNavigate } from 'react-router-dom';
 import FloatingButton from '../../UI/FloatingButton';
 import IconPost from '../../Icons/IconPost';
+import Button from '../../UI/Button';
+import { fetchAuthMe } from '../../../redux/slices/auth';
 
 const Notes = () => {
   const dispatch = useDispatch();
@@ -18,20 +20,15 @@ const Notes = () => {
   const [filter, setFilter] = useState({ sort: '', query: '' });
   const sortedAndSearchedContent = useContent(notes.items, filter.sort, filter.query);
 
-  const navigate = useNavigate();
-
   React.useEffect(() => {
     dispatch(fetchNotes());
     dispatch(fetchTags());
   }, [dispatch]);
 
-  React.useEffect(() => {
-    if (!isNotesLoading && notes.items.length === 0) {
-      navigate('/add-note');
-    } else {
-      navigate('/notes');
-    }
-  }, [sortedAndSearchedContent]);
+  const handleFetchNotes = () => {
+    dispatch(fetchAuthMe(userData?._id));
+    dispatch(fetchNotes());
+  };
 
   return (
     <>
@@ -62,6 +59,13 @@ const Notes = () => {
                 )
               )}
             </ul>
+            {notes.items.length === 0 ? (
+              <Button className="mt-5" onClick={handleFetchNotes}>
+                Загрузить статьи
+              </Button>
+            ) : (
+              ''
+            )}
           </div>
         </div>
         <FloatingButton
