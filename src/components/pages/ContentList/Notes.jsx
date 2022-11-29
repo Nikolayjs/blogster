@@ -13,7 +13,7 @@ import { fetchAuthMe } from '../../../redux/slices/auth';
 const Notes = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth.data);
-  const { notes, tags } = useSelector((state) => state.notes);
+  const { notes } = useSelector((state) => state.notes);
   const isNotesLoading = notes.status === 'loading';
   const [filter, setFilter] = useState({ sort: '', query: '' });
   const sortedAndSearchedContent = useContent(notes.items, filter.sort, filter.query);
@@ -39,7 +39,7 @@ const Notes = () => {
               value={filter.query}
               onChange={(e) => setFilter({ ...filter, query: e.target.value })}
             />
-            <ul role="list">
+            <ul>
               {(isNotesLoading ? [...Array(5)] : sortedAndSearchedContent).map((el) =>
                 isNotesLoading ? (
                   <Note key={uuidv4()} isLoading={true} />
