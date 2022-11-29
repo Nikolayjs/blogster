@@ -1,7 +1,7 @@
+/*eslint-disable */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { fetchAuthMe } from '../../redux/slices/auth';
 import { fetchPosts } from '../../redux/slices/posts';
 import Skeleton from '../Note/Skeleton';
 import Button from '../UI/Button';
@@ -26,6 +26,7 @@ const UserInfo = () => {
   React.useEffect(() => {
     dispatch(fetchPosts());
     setMyPosts(posts.items.filter((post) => userData._id === post.user._id));
+    fetchPosts();
   }, [dispatch]);
 
   React.useEffect(() => {
@@ -77,9 +78,7 @@ const UserInfo = () => {
         avatarUrl,
         // skills
       };
-      const { data } = isEditing
-        ? await axios.patch(`/user/${id}`, fields)
-        : await axios.post('/posts', fields);
+      isEditing ? await axios.patch(`/user/${id}`, fields) : await axios.post('/posts', fields);
       setIsEdit(!isEdit);
     } catch (err) {
       console.warn(err);
@@ -98,7 +97,7 @@ const UserInfo = () => {
       </main>
     );
   }
-  console.log(isEdit);
+
   return (
     <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 min-w-4xl mx-auto">
       <div className="flex max-xl:inline-block justify-center m-auto px-4 mx-auto w-full">
@@ -109,6 +108,7 @@ const UserInfo = () => {
                 onClick={() => inputFileRef.current.click()}
                 className="w-16 h-16 "
                 src={`http://localhost:4000${avatarUrl}`}
+                alt="avatar"
               />
               <input ref={inputFileRef} type="file" onChange={handleChangeAvatar} hidden />
               {updateAvatar && (
@@ -149,7 +149,6 @@ const UserInfo = () => {
                 <TextField inputId="skills" id="skills" label="Skills" />
               </div>
               <p className="text-lg font-bold">Дата регистрации: {getDate(userData.createdAt)}</p>
-
               <div className="w-auto">
                 <Button onClick={onSubmit}>Сохранить изменения</Button>
                 <Button onClick={handleEdit}>Отмена</Button>
@@ -171,10 +170,10 @@ const UserInfo = () => {
                           />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-xl font-medium text-gray-900 truncate dark:text-white">
+                          <p className="text-lg font-normal text-gray-900 truncate dark:text-white">
                             {post.title}
                           </p>
-                          <p className="text-lg text-gray-500 truncate dark:text-gray-400">
+                          <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                             {post.description}
                           </p>
                         </div>
@@ -198,7 +197,11 @@ const UserInfo = () => {
         ) : (
           <>
             <div className="py-4 px-3 ">
-              <img className="w-16 h-16 rounded-full" src={`http://localhost:4000${avatarUrl}`} />
+              <img
+                className="w-16 h-16 rounded-full"
+                src={`http://localhost:4000${avatarUrl}`}
+                alt="avatar"
+              />
             </div>
             <article className="w-3/6 max-xl:w-full format format-sm sm:format-base lg:format-lg format-blue dark:format-invert mt-5">
               <div className="inline-block min-w-full">
@@ -229,10 +232,10 @@ const UserInfo = () => {
                           />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-xl font-medium text-gray-900 truncate dark:text-white">
+                          <p className="text-lg font-normal text-gray-900 truncate dark:text-white">
                             {post.title}
                           </p>
-                          <p className="text-lg text-gray-500 truncate dark:text-gray-400">
+                          <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                             {post.description}
                           </p>
                         </div>

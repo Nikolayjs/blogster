@@ -1,6 +1,6 @@
 import React from 'react';
 
-const IconUser = ({ style, onClick, children }) => {
+const IconUser = ({ className, onClick }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -9,7 +9,7 @@ const IconUser = ({ style, onClick, children }) => {
       strokeWidth={1.5}
       stroke="currentColor"
       onClick={onClick}
-      className={`${style} w-5 h-5`}
+      className={`${className} w-5 h-5`}
     >
       <path
         strokeLinecap="round"

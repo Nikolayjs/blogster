@@ -12,7 +12,7 @@ const Login = () => {
     register,
     handleSubmit,
     setValue,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm({
     defaultValues: {
       email: '',
@@ -64,9 +64,9 @@ const Login = () => {
               <button type="submit" className={'success-btn mt-5'}>
                 Войти
               </button>
-              <Link to={'/register'} className={'success-btn mt-5'}>
-                Зарегистрироваться
-              </Link>
+              <button type="submit" className={'success-btn mt-5'}>
+                <Link to="/register">Зарегистрироваться</Link>
+              </button>
             </div>
           </form>
         </article>

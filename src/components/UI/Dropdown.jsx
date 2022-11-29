@@ -13,19 +13,19 @@ const Dropdown = ({ list }) => {
     <div className=" flex justify-center">
       {theme === 'dark' ? (
         <IconUser
-          style="text-gray-500 dark:text-gray-400 text-2xl cursor-pointer stroke-slate-200"
+          className="text-gray-500 dark:text-gray-400 text-2xl cursor-pointer stroke-slate-200"
           onClick={handleOpen}
         />
       ) : (
         <IconUser
-          style="text-gray-500 dark:text-gray-400 text-2xl cursor-pointer"
+          className="text-gray-500 dark:text-gray-400 text-2xl cursor-pointer"
           onClick={handleOpen}
         />
       )}
       <ul
         className={`${
           open ? '' : 'hidden'
-        } py-1 rounded-sm bg-white shadow-xl mt-10 dark:bg-slate-600 absolute text-sm text-gray-700 dark:text-gray-200`}
+        } py-1 rounded-sm bg-white shadow-xl mt-10 dark:bg-slate-600 absolute text-gray-700 dark:text-gray-200`}
       >
         {list.map((el) => (
           <li key={uuidv4()} onClick={() => setOpen(!open)}>

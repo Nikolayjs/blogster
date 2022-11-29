@@ -97,7 +97,7 @@ const Post = ({
       ) : (
         <div
           key={uuidv4()}
-          className="relative block w-full lg:flex mb-2 rounded-tr-md rounded-tl-md shadow-lg  hover:shadow-xl dark:hover:bg-gray-800 dark:border-b-2 dark:border-b-slate-700"
+          className="relative block w-full lg:flex mb-2 rounded-tr-md rounded-tl-md shadow-md hover:shadow-lg dark:hover:bg-gray-800 dark:border-b-2 dark:border-b-slate-700"
           to={`/posts/${_id}`}
         >
           <Modal text="Удалить статью?" onRemove={onClickRemove} />

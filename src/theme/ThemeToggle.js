@@ -10,12 +10,12 @@ const ThemeToggle = ({ style }) => {
       {theme === 'dark' ? (
         <IconLight
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          style="text-gray-500 dark:text-gray-400 text-2xl cursor-pointer stroke-slate-200"
+          className="text-gray-500 dark:text-gray-400 text-2xl cursor-pointer stroke-slate-200"
         />
       ) : (
         <IconDark
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          style="text-gray-500 dark:text-gray-400 text-2xl cursor-pointer"
+          className="text-gray-500 dark:text-gray-400 text-2xl cursor-pointer"
         />
       )}
     </div>

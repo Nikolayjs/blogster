@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 const Tags = ({ tags }) => {
   return (
@@ -12,11 +13,11 @@ const Tags = ({ tags }) => {
             key={uuidv4()}
             className="dark:border-transparent dark:hover:border-gray-200 px-1 py-4 border-y border-white hover:border-gray-200 transition-all duration-300"
           >
-            <a className="flex items-center dark:text-slate-400 text-gray-600" href="">
+            <Link className="flex items-center dark:text-slate-400 text-gray-600" to="">
               <span className="inline-block w-4 h-4 mr-3"></span>
               {tag}
               <span className="text-gray-500 dark:text-slate-400 ml-auto">23 art</span>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

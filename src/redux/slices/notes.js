@@ -8,7 +8,7 @@ export const getMyId = (id) => {
 
 export const fetchNotes = createAsyncThunk('notes/fetchNotes', async () => {
   const { data } = await axios.get('/notes');
-  return data.filter((el) => el.user._id === myId);
+  return data.filter((el) => el.user?._id === myId);
 });
 
 export const fetchTags = createAsyncThunk('notes/fetchTags', async () => {

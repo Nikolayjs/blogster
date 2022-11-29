@@ -14,7 +14,7 @@ const AddPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = React.useState('');
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [, setIsLoading] = React.useState(false);
   const isAuth = useSelector(selectIsAuth);
   const [content, setContent] = React.useState('');
   const [title, setTitle] = React.useState('');
@@ -93,7 +93,7 @@ const AddPost = () => {
         delay: 1000,
       },
     }),
-    []
+    [content]
   );
 
   if (!window.localStorage.getItem('token') && !isAuth) {
@@ -117,14 +117,14 @@ const AddPost = () => {
       <div className="flex flex-col justify-center items-center mt-10">
         <TextField
           label="Заголовок"
-          style="mt-5 text-4xl"
+          className="mt-5 text-4xl"
           inputId="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <TextField
           label="Описание"
-          style="mt-5 text-4xl"
+          className="mt-5 text-4xl"
           inputId="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -132,7 +132,7 @@ const AddPost = () => {
         <TextField
           label="Теги"
           inputId="tags"
-          style="mt-5 text-1xl"
+          className="mt-5 text-1xl"
           value={tags}
           onChange={(e) => setTags(e.target.value)}
         />

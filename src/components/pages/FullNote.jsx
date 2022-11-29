@@ -18,7 +18,7 @@ const FullNote = () => {
         console.warn(err);
         alert('Ошибка');
       });
-  }, []);
+  }, [id]);
   if (isLoading) {
     return <Note isLoading={isLoading} isFullNote />;
   }

@@ -1,25 +1,26 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Pagination = ({ posts }) => {
   return (
     <div className="mt-20 mb-10">
       <ul className="flex justify-center">
         <li>
-          <a className="pagination-item rounded-l-lg" href="#">
+          <Link className="pagination-item rounded-l-lg" to="#">
             Назад
-          </a>
+          </Link>
         </li>
         {posts.map((post, i) => (
           <li key={i}>
-            <a className="pagination-item" href="#">
+            <Link className="pagination-item" to="#">
               {i + 1}
-            </a>
+            </Link>
           </li>
         ))}
         <li>
-          <a className="pagination-item rounded-r-lg" href="#">
+          <Link className="pagination-item rounded-r-lg" to="#">
             Дальше
-          </a>
+          </Link>
         </li>
       </ul>
     </div>

@@ -14,7 +14,7 @@ const AddNote = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = React.useState('');
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [, setIsLoading] = React.useState(false);
   const isAuth = useSelector(selectIsAuth);
   const [content, setContent] = React.useState('');
   const [title, setTitle] = React.useState('');
@@ -71,7 +71,7 @@ const AddNote = () => {
         setTags(data.tags.join(','));
       });
     }
-  }, []);
+  }, [id]);
 
   const options = React.useMemo(
     () => ({
@@ -79,7 +79,6 @@ const AddNote = () => {
       maxHeight: '400px',
       autofocus: true,
       placeholder: 'Введите текст',
-      status: false,
       status: ['lines', 'words'],
       sideBySideFullscreen: true,
       previewRender() {
@@ -91,7 +90,7 @@ const AddNote = () => {
         delay: 1000,
       },
     }),
-    []
+    [content]
   );
 
   if (!window.localStorage.getItem('token') && !isAuth) {
@@ -109,14 +108,14 @@ const AddNote = () => {
           <Button className="mb-2" onClick={onClickRemove}>
             Удалить
           </Button>
-          <img src={`http://localhost:4000${imageUrl}`} className="w-full mb-10" />
+          <img src={`http://localhost:4000${imageUrl}`} className="w-full mb-10" alt={title} />
         </>
       )}
 
       <div className="flex flex-col justify-center items-center mt-10">
         <TextField
           label="Заголовок"
-          style="mt-5 text-4xl"
+          className="mt-5 text-4xl"
           inputId="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -124,7 +123,7 @@ const AddNote = () => {
         <TextField
           label="Теги"
           inputId="tags"
-          style="mt-5 text-1xl"
+          className="mt-5 text-1xl"
           value={tags}
           onChange={(e) => setTags(e.target.value)}
         />

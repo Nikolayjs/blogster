@@ -20,7 +20,7 @@ const FullPost = () => {
       .catch((err) => {
         console.warn(err);
       });
-  }, []);
+  }, [id]);
   if (isLoading) {
     return <Post isLoading={isLoading} isFullPost />;
   }

@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from 'uuid';
 import Note from '../../Note/Note';
 import TextField from '../../UI/TextField';
 import { useContent } from '../../../hooks/useContent';
-import { useNavigate } from 'react-router-dom';
 import FloatingButton from '../../UI/FloatingButton';
 import IconPost from '../../Icons/IconPost';
 import Button from '../../UI/Button';
@@ -16,7 +15,6 @@ const Notes = () => {
   const userData = useSelector((state) => state.auth.data);
   const { notes, tags } = useSelector((state) => state.notes);
   const isNotesLoading = notes.status === 'loading';
-  const isTagsLoading = tags.status === 'loading';
   const [filter, setFilter] = useState({ sort: '', query: '' });
   const sortedAndSearchedContent = useContent(notes.items, filter.sort, filter.query);
 
@@ -33,7 +31,7 @@ const Notes = () => {
   return (
     <>
       <article className="mx-auto w-full max-w-5xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert mt-10">
-        <div className="w-full max-w-full p-4 bg-white border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-full max-w-full p-4 bg-white border rounded-lg shadow-sm sm:p-8 dark:bg-gray-800 dark:border-gray-700">
           <div className="flow-root">
             <TextField
               type="text"

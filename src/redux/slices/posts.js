@@ -1,11 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../../axios';
 
-let myId;
-export const getMyId = (id) => {
-  myId = id;
-};
-
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
   const { data } = await axios.get('/posts');
   const date = data.map((el) => ({ ...el, createdAt: Date.parse(el.createdAt) }));

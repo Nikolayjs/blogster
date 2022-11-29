@@ -20,17 +20,10 @@ const Navbar = () => {
     }
   };
   const listItems = [
-    <Link
-      to={`/user/${userData?._id}`}
-      className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-    >
+    <Link to={`/user/${userData?._id}`} className="block py-2 px-4">
       Личный кабинет
     </Link>,
-    <Link
-      to="/"
-      className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-      onClick={onClickLogout}
-    >
+    <Link to="/" className="block px-4" onClick={onClickLogout}>
       Выйти
     </Link>,
   ];

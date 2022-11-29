@@ -7,6 +7,9 @@ module.exports = {
       gridTemplateRows: {
         layout: 'auto 1fr auto',
       },
+      fontFamily: {
+        main: ['Rubik'],
+      },
     },
   },
   plugins: [require('@tailwindcss/typography')],
