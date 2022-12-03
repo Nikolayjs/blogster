@@ -10,16 +10,28 @@ export const useSortedContent = (content, sort) => {
   return sortedContent;
 };
 
-export const useContent = (content, sort, query) => {
-  const sortedContent = useSortedContent(content, sort);
+export const useFilteredContent = (content, filter) => {
+  const filteredContent = useMemo(() => {
+    if (filter) {
+      return [...content].filter((el) => el.tags.includes(filter));
+    }
+  }, [filter, content]);
+  return filteredContent;
+};
 
+export const useContent = (content, sort, filter, query) => {
+  const sortedContent = useSortedContent(content, sort);
+  const filteredContent = useFilteredContent(content, filter);
   const sortedAndSearchedContent = useMemo(() => {
+    if (!query && filteredContent) {
+      return filteredContent;
+    }
     return sortedContent.filter(
       (c) =>
         c.title.toLowerCase().includes(query.toLowerCase()) ||
         c.content.toLowerCase().includes(query.toLowerCase())
     );
-  }, [query, sortedContent]);
+  }, [query, sortedContent, filteredContent]);
 
   return sortedAndSearchedContent;
 };

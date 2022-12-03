@@ -7,7 +7,12 @@ export const getMyId = (id) => {
 };
 
 export const fetchNotes = createAsyncThunk('notes/fetchNotes', async () => {
-  const { data } = await axios.get('/notes');
+  const { data } = await axios.get('/notes', {
+    params: {
+      _limit: 10,
+      _page: 1,
+    },
+  });
   return data.filter((el) => el.user?._id === myId);
 });
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 const Skeleton = () => {
   return (
-    <div className="p-4 m-2 space-y-4 max-w-md rounded border border-gray-200 divide-y divide-gray-200 shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
+    <div className="p-4 m-2 space-y-4 max-w-full rounded border border-gray-200 divide-y divide-gray-200 shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
       <div className="flex justify-between items-center pt-4">
         <div>
           <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>

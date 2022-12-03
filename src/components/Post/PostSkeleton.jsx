@@ -2,7 +2,7 @@ import React from 'react';
 
 const PostSkeleton = () => {
   return (
-    <div className="relative block w-2/3 mt-20 lg:flex mb-10 rounded-tr-md rounded-tl-md hover:bg-gray-800 border-b-2 border-b-slate-700">
+    <div className="relative block w-2/3 mt-20 m-auto lg:flex mb-10 rounded-tr-md rounded-tl-md hover:bg-gray-800 border-b-2 border-b-slate-300 dark:border-b-slate-700">
       <div
         role="status"
         className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center"

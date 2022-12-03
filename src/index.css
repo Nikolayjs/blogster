@@ -56,24 +56,14 @@ blockquote p {
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  input:-webkit-autofill:active {
-    -webkit-text-fill-color: rgb(151, 150, 161) !important;
-    transition: background-color 5000s ease-in-out 0s;
-  }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: rgb(151, 150, 161) !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
-@media (prefers-color-scheme: light) {
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  input:-webkit-autofill:active {
-    -webkit-text-fill-color: black !important;
-    transition: background-color 5000s ease-in-out 0s;
-  }
-}
+
 .a-card {
   @apply mt-5 flex flex-col items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700;
 }
@@ -112,6 +102,19 @@ blockquote p {
 }
 .editor-toolbar button.active {
   @apply dark:bg-slate-600;
+}
+
+.CodeMirror-fullscreen,
+.editor-preview-side,
+.editor-preview-full,
+.editor-preview {
+  @apply bg-white dark:bg-gray-700 dark:text-white border-none;
+}
+.editor-preview-side {
+  @apply mt-16;
+}
+.editor-toolbar.fullscreen {
+  @apply bg-white dark:bg-gray-700 dark:text-white border-none mt-20;
 }
 
 .CodeMirror {
@@ -531,15 +534,14 @@ span.CodeMirror-selectedtext {
   cursor: text;
 }
 .EasyMDEContainer .CodeMirror-fullscreen {
-  background: #fff;
   position: fixed !important;
-  top: 50px;
+  top: 72px;
   left: 0;
   right: 0;
   bottom: 0;
   height: auto;
   z-index: 8;
-  border-right: none !important;
+  border: none !important;
   border-bottom-right-radius: 0 !important;
 }
 .EasyMDEContainer .CodeMirror-sided {
@@ -580,10 +582,11 @@ span.CodeMirror-selectedtext {
   background: #fff;
   border: 0;
   position: fixed;
-  top: 0;
+  top: 65px;
   left: 0;
   opacity: 1;
   z-index: 9;
+  margin: 0;
 }
 .editor-toolbar.fullscreen:before {
   width: 20px;
@@ -738,7 +741,7 @@ span.CodeMirror-selectedtext {
   overflow: auto;
   display: none;
   box-sizing: border-box;
-  border: 1px solid #ddd;
+  border-left: 1px solid rgba(32, 32, 32, 0.329);
   word-wrap: break-word;
 }
 .editor-preview-active-side {

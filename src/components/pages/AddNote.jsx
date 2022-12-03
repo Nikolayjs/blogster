@@ -6,7 +6,6 @@ import { selectIsAuth } from '../../redux/slices/auth';
 import Button from '../UI/Button';
 import TextField from '../UI/TextField';
 import SimpleMdeReact from 'react-simplemde-editor';
-import { v4 as uuidv4 } from 'uuid';
 import ReactMarkdown from 'react-markdown';
 import ReactDOMServer from 'react-dom/server';
 
@@ -21,6 +20,7 @@ const AddNote = () => {
   const [tags, setTags] = React.useState([]);
   const inputFileRef = React.useRef(null);
   const isEditing = Boolean(id);
+  const [previewUpdate, setPreviewUpdate] = React.useState(false);
 
   const handleChangeFile = async (event) => {
     try {
@@ -38,10 +38,17 @@ const AddNote = () => {
   const onClickRemove = () => {
     setImageUrl('');
   };
-  const onChange = React.useCallback((value) => {
-    setContent(value);
-  }, []);
-
+  const preview = document.querySelector('.preview');
+  const onChange = React.useCallback(
+    (value) => {
+      setContent(value);
+      preview.addEventListener('click', handlePreview);
+    },
+    [previewUpdate]
+  );
+  const handlePreview = () => {
+    setPreviewUpdate(!previewUpdate);
+  };
   const onSubmit = async () => {
     try {
       setIsLoading(true);
@@ -80,17 +87,17 @@ const AddNote = () => {
       autofocus: true,
       placeholder: 'Введите текст',
       status: ['lines', 'words'],
-      sideBySideFullscreen: true,
+
       previewRender() {
         return ReactDOMServer.renderToString(<ReactMarkdown children={content} />);
       },
       autosave: {
-        uniqueId: uuidv4(),
+        uniqueId: 'uniqueId',
         enabled: true,
         delay: 1000,
       },
     }),
-    [content]
+    [previewUpdate]
   );
 
   if (!window.localStorage.getItem('token') && !isAuth) {

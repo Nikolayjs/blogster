@@ -1,0 +1,12 @@
+export const getPageCount = (totalCount, limit) => {
+  //Округляем полученное значение в большую сторону
+  return Math.ceil(totalCount / limit);
+};
+
+export const getPageArray = (totalPages) => {
+  let result = [];
+  for (let i = 0; i < totalPages; i++) {
+    result.push(i + 1);
+  }
+  return result;
+};

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchNotes, fetchTags } from '../../../redux/slices/notes';
 import { v4 as uuidv4 } from 'uuid';
@@ -9,6 +9,8 @@ import FloatingButton from '../../UI/FloatingButton';
 import IconPost from '../../Icons/IconPost';
 import Button from '../../UI/Button';
 import { fetchAuthMe } from '../../../redux/slices/auth';
+import { useObserver } from '../../../hooks/useObserver';
+import { getPageCount } from '../../../utils/pages';
 
 const Notes = () => {
   const dispatch = useDispatch();
@@ -16,17 +18,32 @@ const Notes = () => {
   const { notes } = useSelector((state) => state.notes);
   const isNotesLoading = notes.status === 'loading';
   const [filter, setFilter] = useState({ sort: '', query: '' });
-  const sortedAndSearchedContent = useContent(notes.items, filter.sort, filter.query);
+  const sortedAndSearchedContent = useContent(
+    notes.items,
+    filter.sort,
+    filter.filter,
+    filter.query
+  );
+  const lastElement = useRef();
+  const [totalPages, setTotalPages] = useState(0);
+  const [page, setPage] = useState(1);
+  const [posts, setPosts] = useState([]);
 
   React.useEffect(() => {
-    dispatch(fetchNotes());
+    setPosts(dispatch(fetchNotes(10)));
     dispatch(fetchTags());
+    // setPosts([...posts, ...response.data]);
+    // const totalCount = response.headers['x-total-count'];
+    // setTotalPages(getPageCount(totalCount, 10));
   }, [dispatch]);
-
   const handleFetchNotes = () => {
     dispatch(fetchAuthMe(userData?._id));
-    dispatch(fetchNotes());
+    dispatch(fetchNotes(10));
   };
+  console.log(notes.items);
+  useObserver(lastElement, page < totalPages, isNotesLoading, () => {
+    setPage(page + 1);
+  });
 
   return (
     <>
@@ -69,6 +86,7 @@ const Notes = () => {
         <FloatingButton
           link={[{ title: 'Создать заметку', url: '/add-note', icon: <IconPost /> }]}
         />
+        <div ref={lastElement} className="h-5 bg-red-400"></div>
       </article>
     </>
   );

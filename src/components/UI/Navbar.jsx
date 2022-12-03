@@ -28,7 +28,7 @@ const Navbar = () => {
     </Link>,
   ];
   return (
-    <nav className="bg-white fixed w-full border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-800 z-50">
+    <nav className="bg-white fixed w-full border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-800 z-50 shadow-md dark:shadow-none">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <a href="https://vk.com/oldjpx" className="flex items-center">
           <img
