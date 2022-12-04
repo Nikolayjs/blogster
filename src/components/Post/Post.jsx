@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { fetchPosts, fetchRemovePost } from '../../redux/slices/posts';
+import { fetchComments, fetchPosts, fetchRemovePost } from '../../redux/slices/posts';
 import Menu from '../UI/Menu';
 import PostSkeleton from './PostSkeleton';
 import { setModal, setConfirm, setId } from '../../redux/slices/modal';
 import Modal from '../UI/Modal';
 import Button from '../UI/Button';
+import Comments from '../UI/Comments';
 
 const Post = ({
   _id,
@@ -18,7 +19,7 @@ const Post = ({
   content,
   description,
   viewsCount,
-  commentsCount,
+  comments,
   tags,
   children,
   isFullPost,
@@ -52,6 +53,9 @@ const Post = ({
     { name: 'Удалить', func: handleModal, id: _id },
     { name: 'Редактировать', link: `/posts/${_id}/edit` },
   ];
+  const handleDelete = () => {};
+  const handleEdit = () => {};
+
   return (
     <>
       {isFullPost ? (
@@ -91,6 +95,14 @@ const Post = ({
               ) : (
                 ''
               )}
+              <Comments
+                user={user}
+                id={_id}
+                imageUrl={imageUrl}
+                comments={comments}
+                onDelete={handleDelete}
+                onEdit={handleEdit}
+              />
             </article>
           </div>
         </main>

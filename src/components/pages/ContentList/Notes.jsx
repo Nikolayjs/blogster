@@ -40,7 +40,6 @@ const Notes = () => {
     dispatch(fetchAuthMe(userData?._id));
     dispatch(fetchNotes(10));
   };
-  console.log(notes.items);
   useObserver(lastElement, page < totalPages, isNotesLoading, () => {
     setPage(page + 1);
   });
@@ -76,7 +75,7 @@ const Notes = () => {
             </ul>
             {notes.items.length === 0 ? (
               <Button className="mt-5" onClick={handleFetchNotes}>
-                Загрузить статьи
+                Загрузить заметки
               </Button>
             ) : (
               ''

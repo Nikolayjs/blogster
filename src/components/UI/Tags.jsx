@@ -4,9 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 const Tags = ({ tags, filter, handleTag }) => {
   return (
     <div className="w-full mb-5 md:w-1/2 lg:w-full">
-      <h5 className="font-bold text-lg uppercase dark:text-white text-gray-700 mb-2">
-        Последние теги
-      </h5>
       <ul>
         {tags.map((tag) => (
           <li

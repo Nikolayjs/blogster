@@ -97,7 +97,7 @@ const AddPost = () => {
         return ReactDOMServer.renderToString(<ReactMarkdown children={content} />);
       },
     }),
-    [content]
+    [previewUpdate]
   );
 
   if (!window.localStorage.getItem('token') && !isAuth) {

@@ -32,6 +32,7 @@ const FullPost = () => {
       user={data.user}
       createdAt={data.createdAt}
       tags={data.tags}
+      comments={data.comments}
       isEditable={userData?._id === data.user._id}
       isFullPost
     >

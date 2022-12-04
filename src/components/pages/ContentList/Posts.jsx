@@ -34,7 +34,6 @@ const Posts = () => {
     dispatch(fetchTags());
     dispatch(fetchAllTags());
   }, [dispatch]);
-
   const handlePageChange = (pageIndex) => {
     setCurrentPage(pageIndex);
   };
@@ -43,7 +42,7 @@ const Posts = () => {
     setFilteredTags(
       allTags?.items.filter((el) => el.toLocaleLowerCase().includes(tag.toLocaleLowerCase()))
     );
-  }, [tag]);
+  }, [tag, allTags]);
 
   if (posts.items.length === 0) {
     return (
@@ -55,6 +54,7 @@ const Posts = () => {
       </>
     );
   }
+
   const count = sortedAndSearchedContent.length;
   const postsCrop = paginate(sortedAndSearchedContent, currentPage, pageSize);
   return (
@@ -71,19 +71,21 @@ const Posts = () => {
                   value={filter.query}
                   onChange={(e) => setFilter({ ...filter, query: e.target.value })}
                 />
-                {postsCrop.map((post) => (
-                  <Post
-                    key={post._id}
-                    _id={post._id}
-                    imageUrl={post.imageUrl}
-                    description={post.description}
-                    title={post.title}
-                    content={post.content}
-                    user={post.user}
-                    createdAt={post.createdAt}
-                    isEditable={userData?._id === post.user._id}
-                  />
-                ))}
+                {postsCrop.map((post) => {
+                  return (
+                    <Post
+                      key={post._id}
+                      _id={post._id}
+                      imageUrl={post.imageUrl}
+                      description={post.description}
+                      title={post.title}
+                      content={post.content}
+                      user={post.user}
+                      createdAt={post.createdAt}
+                      isEditable={userData?._id === post.user._id}
+                    />
+                  );
+                })}
                 {userData?._id ? (
                   <FloatingButton
                     link={[{ title: 'Создать статью', url: '/add-post', icon: <IconPost /> }]}
@@ -101,18 +103,26 @@ const Posts = () => {
             </div>
             {!viewTags ? (
               <div className="w-full lg:w-1/3 px-2 md:flex md:space-x-6 lg:block lg:space-x-0 justify-center align-middle text-center">
+                <h5 className="font-bold text-lg uppercase dark:text-white text-gray-700 mb-2">
+                  Последние теги
+                </h5>
                 <Tags tags={tags.items} filter={filter} handleTag={setFilter} />
                 <Button onClick={() => setViewTags(!viewTags)}>Показать все теги</Button>
               </div>
             ) : (
               <div className="w-full lg:w-1/3 px-2 md:flex md:space-x-6 lg:block lg:space-x-0 justify-center align-middle text-center">
-                <TextField
-                  type="text"
-                  label="Поиск по тегам"
-                  value={tag}
-                  onChange={(e) => setTag(e.target.value)}
-                />
-                <Tags tags={filteredTags} filter={filter} handleTag={setFilter} />
+                <div className="text-left">
+                  <TextField
+                    type="text"
+                    label="Поиск по тегам"
+                    value={tag}
+                    onChange={(e) => setTag(e.target.value)}
+                  />
+                </div>
+                {filteredTags.length !== 0 && (
+                  <Tags tags={filteredTags} filter={filter} handleTag={setFilter} />
+                )}
+
                 <Button onClick={() => setViewTags(!viewTags)}>Показать последние теги</Button>
               </div>
             )}
