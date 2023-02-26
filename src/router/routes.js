@@ -7,12 +7,14 @@ import AddNote from '../components/pages/AddNote';
 import FullPost from '../components/pages/FullPost';
 import AddPost from '../components/pages/AddPost';
 import UserInfo from '../components/pages/UserInfo';
+import TagsPage from '../components/pages/TagsPage';
 
 export const publicRoutes = [
   { path: '/', element: Home, url: '/', name: 'Главная' },
   { path: '/login', element: Login, url: '/login', name: 'Логин' },
   { path: '/register', element: Registration, url: '/register', name: 'Регистрация' },
   { path: '/posts/:id', element: FullPost, url: '/posts/:id', name: 'Статья' },
+  { path: '/:id', element: TagsPage, url: '/tags/:id', name: 'Поиск по тегам' },
 ];
 
 export const privateRoutes = [
@@ -50,4 +52,5 @@ export const privateRoutes = [
     url: '/user/:id',
     name: 'Личный кабинет',
   },
+  { path: '/tags/:id', element: TagsPage, url: '/tags/:id', name: 'Поиск по тегам' },
 ];

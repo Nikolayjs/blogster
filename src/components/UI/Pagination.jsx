@@ -12,7 +12,7 @@ const Pagination = ({ itemsCount, pageSize, changePage, currentPage }) => {
       <ul className="flex justify-center">
         <li>
           <Link
-            className="pagination-item rounded-l-lg"
+            className="pagination-item rounded-l-lg hover:bg-slate-500"
             onClick={() => changePage(currentPage - 1)}
           >
             Назад
@@ -21,7 +21,9 @@ const Pagination = ({ itemsCount, pageSize, changePage, currentPage }) => {
         {pages.map((page) => (
           <li key={'page_' + page}>
             <Link
-              className={`pagination-item ${page === currentPage ? 'bg-slate-300' : ''}`}
+              className={`pagination-item hover:bg-slate-500 ${
+                page === currentPage ? 'bg-slate-600 text-stone-300' : ''
+              }`}
               onClick={() => changePage(page)}
             >
               {page}
@@ -30,7 +32,7 @@ const Pagination = ({ itemsCount, pageSize, changePage, currentPage }) => {
         ))}
         <li>
           <Link
-            className="pagination-item rounded-r-lg"
+            className="pagination-item rounded-r-lg hover:bg-slate-500"
             onClick={() => changePage(currentPage + 1)}
           >
             Дальше

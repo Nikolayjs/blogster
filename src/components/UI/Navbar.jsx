@@ -16,6 +16,7 @@ const Navbar = () => {
   const onClickLogout = () => {
     if (window.confirm('Выйти?')) {
       dispatch(logout());
+      setToogle({ ...toogle, isOpen: !toogle.isOpen });
       window.localStorage.removeItem('token');
     }
   };
@@ -28,18 +29,18 @@ const Navbar = () => {
     </Link>,
   ];
   return (
-    <nav className="bg-white fixed w-full border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-800 z-50 shadow-md dark:shadow-none">
+    <nav className="bg-gray-100 fixed w-full border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-zinc-800 z-50 dark:shadow-none">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
-        <a href="https://vk.com/oldjpx" className="flex items-center">
+        <Link to="/" className="flex items-center">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png"
             className="mr-3 h-6 sm:h-9"
             alt="Flowbite Logo"
           />
-          <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+          <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white dark:hover:text-blue-400 transition-all duration-200">
             Коломбос
           </span>
-        </a>
+        </Link>
 
         <div className="inline-flex items-center md:hidden">
           <ThemeToggle />
@@ -69,11 +70,7 @@ const Navbar = () => {
           </button>
         </div>
         <div className={toogle.isOpen ? hidden : visible} id="navbar-default">
-          <ul className="flex flex-col p-4 mt-4 bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white md:dark:bg-transparent dark:bg-transparent">
-            <Link to="/" className="link">
-              Главная
-            </Link>
-
+          <ul className="flex flex-col p-4 mt-4  md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 ">
             {isAuth ? (
               <>
                 <Link to="/notes" className="link">
@@ -83,7 +80,10 @@ const Navbar = () => {
                   <Dropdown list={listItems} />
                 ) : (
                   <>
-                    <Link to={`/user/${userData?._id}`} className="link">
+                    <Link
+                      to={`/user/${userData?._id}`}
+                      onClick={() => setToogle({ ...toogle, isOpen: !toogle.isOpen })}
+                    >
                       Личный кабинет
                     </Link>
                     <Link to="/" className="link" onClick={onClickLogout}>

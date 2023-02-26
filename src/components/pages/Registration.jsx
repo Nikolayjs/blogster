@@ -2,11 +2,12 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRegister, selectIsAuth } from '../../redux/slices/auth';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import TextField from '../UI/TextField';
 
 const Registration = () => {
   const isAuth = useSelector(selectIsAuth);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
     register,
@@ -21,6 +22,9 @@ const Registration = () => {
     },
     mode: 'onChange',
   });
+  const handleLogin = () => {
+    navigate('/login');
+  };
   const onSubmit = async (values) => {
     const data = await dispatch(fetchRegister(values));
     if (!data.payload) {
@@ -30,11 +34,11 @@ const Registration = () => {
       window.localStorage.setItem('token', data.payload.token);
     }
   };
-  if (isAuth) {
-    return <Navigate to="/" />;
-  }
+  const handleNavigate = () => {
+    navigate('/');
+  };
   return (
-    <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900">
+    <main className="pt-8 pb-16 lg:pt-16 lg:pb-24">
       <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
         <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
           <h1 className="mb-10">Регистрация</h1>
@@ -75,9 +79,17 @@ const Registration = () => {
                 })
               }
             />
-            <div className="flex flex-row justify-between">
-              <button disabled={!isValid} type="submit" className={'success-btn mt-5'}>
+            <div className="flex flex-row">
+              <button
+                disabled={!isValid}
+                type="submit"
+                className="success-btn mt-5"
+                onClick={handleNavigate}
+              >
                 Зарегистрироваться
+              </button>
+              <button onClick={handleLogin} type="submit" className="success-btn mt-5 ml-3">
+                Войти
               </button>
             </div>
           </form>

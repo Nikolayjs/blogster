@@ -33,7 +33,7 @@ const Login = () => {
   };
 
   return (
-    <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900">
+    <main className="pt-8 pb-16 lg:pt-16 lg:pb-24">
       <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
         <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
           <h1 className="mb-10">Вход</h1>

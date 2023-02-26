@@ -22,6 +22,7 @@ const AddPost = () => {
   const inputFileRef = React.useRef(null);
   const isEditing = Boolean(id);
   const [previewUpdate, setPreviewUpdate] = React.useState(false);
+  const ref = React.useRef();
 
   const handleChangeFile = async (event) => {
     try {
@@ -39,17 +40,12 @@ const AddPost = () => {
   const onClickRemove = () => {
     setImageUrl('');
   };
+
   const onChange = React.useCallback(
     (value) => {
       setContent(value);
-      const code = document.querySelector('.cm-s-easymde');
-      code.addEventListener('keydown', (e) => {
-        if (e.keyCode === 13) {
-          setPreviewUpdate(!previewUpdate);
-        }
-      });
     },
-    [previewUpdate]
+    [content]
   );
 
   const onSubmit = async () => {
@@ -97,7 +93,7 @@ const AddPost = () => {
         return ReactDOMServer.renderToString(<ReactMarkdown children={content} />);
       },
     }),
-    [previewUpdate]
+    []
   );
 
   if (!window.localStorage.getItem('token') && !isAuth) {
@@ -105,20 +101,17 @@ const AddPost = () => {
   }
   return (
     <article className="mx-auto w-full max-w-5xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert mt-10">
-      <Button className="mr-3 mb-2 w-1/4" onClick={() => inputFileRef.current.click()}>
-        Загрузить превью
-      </Button>
       <input ref={inputFileRef} type="file" onChange={handleChangeFile} hidden />
       {imageUrl && (
-        <>
-          <Button className="mb-2" onClick={onClickRemove}>
-            Удалить
-          </Button>
-          <img src={`http://localhost:4000${imageUrl}`} className="w-full mb-10" alt="title" />
-        </>
+        <img
+          src={`http://localhost:4000${imageUrl}`}
+          className="w-full mb-10"
+          alt="title"
+          onClick={() => inputFileRef.current.click()}
+        />
       )}
 
-      <div className="flex flex-col justify-center items-center mt-10">
+      <div className="flex flex-col p-5 justify-center items-center mt-10 Code">
         <TextField
           label="Заголовок"
           className="mt-5 text-4xl"
@@ -138,15 +131,23 @@ const AddPost = () => {
           inputId="tags"
           className="mt-5 text-1xl"
           value={tags}
-          onChange={(e) => setTags(e.target.value)}
+          onChange={(e) => setTags(e.target.value.replace(' ', ''))}
         />
-        <SimpleMdeReact value={content} onChange={onChange} options={options} className="w-full" />
-        <div className="flex">
-          <Button onClick={onSubmit}>{isEditing ? 'Сохранить' : 'Опубликовать'}</Button>
-          <Link className="ml-3" to={`/notes/${id}`}>
-            <Button>Отмена</Button>
-          </Link>
+        <div className="flex flex-row w-full justify-center mb-">
+          <Button className="mr-3" onClick={() => inputFileRef.current.click()}>
+            Загрузить превью
+          </Button>
+          <Button onClick={onClickRemove}>Удалить превью</Button>
         </div>
+        <SimpleMdeReact value={content} onChange={onChange} options={options} className="w-full" />
+        {content.length > 0 && (
+          <div className="flex">
+            <Button onClick={onSubmit}>{isEditing ? 'Сохранить' : 'Опубликовать'}</Button>
+            <Link className="ml-3" to={`/notes/${id}`}>
+              <Button>Отмена</Button>
+            </Link>
+          </div>
+        )}
       </div>
     </article>
   );

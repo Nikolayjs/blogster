@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { fetchComments, fetchPosts, fetchRemovePost } from '../../redux/slices/posts';
+import { fetchPosts, fetchRemovePost } from '../../redux/slices/posts';
 import Menu from '../UI/Menu';
 import PostSkeleton from './PostSkeleton';
 import { setModal, setConfirm, setId } from '../../redux/slices/modal';
 import Modal from '../UI/Modal';
 import Button from '../UI/Button';
 import Comments from '../UI/Comments';
+import Prism from 'prismjs';
+import '../../themes/prism.css';
+import BackToTop from '../UI/BackToTop';
 
 const Post = ({
   _id,
@@ -26,6 +29,10 @@ const Post = ({
   isLoading,
   isEditable,
 }) => {
+  React.useEffect(() => {
+    Prism.highlightAll();
+  }, [children]);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const modal = useSelector((state) => state.modal);
   if (isLoading) {
@@ -53,15 +60,17 @@ const Post = ({
     { name: 'Удалить', func: handleModal, id: _id },
     { name: 'Редактировать', link: `/posts/${_id}/edit` },
   ];
-  const handleDelete = () => {};
-  const handleEdit = () => {};
+
+  const handleTag = (tag) => {
+    navigate(`/tags/${tag.trim()}`);
+  };
 
   return (
     <>
       {isFullPost ? (
-        <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900">
+        <>
           <Modal text="Удалить статью?" />
-          <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
+          <div className="flex justify-between px-4 mx-auto max-w-screen-xl mt-10">
             <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
               <header className="mb-4 lg:mb-6 not-format">
                 <address className="flex items-center mb-6 not-italic">
@@ -75,16 +84,25 @@ const Post = ({
                     </div>
                   </div>
                 </address>
+                <h1 className="mt-3">{title}</h1>
                 <figure>
                   <img className="rounded-md" src={`http://localhost:4000${imageUrl}`} alt="" />
                 </figure>
-                <h1 className="mt-3">{title}</h1>
               </header>
               {children && (
-                <div className="text-white font-semibold text-lg border-b-2 border-b-gray-500">
+                <div className="text-white font-semibold text-lg border-b-2 border-b-gray-500 Code">
                   {children}
                 </div>
               )}
+              {tags?.map((tag) => (
+                <span
+                  key={uuidv4()}
+                  onClick={() => handleTag(tag)}
+                  className="mt-5 cursor-pointer bg-gradient-to-bl from-blue-600 to-indigo-600 text-white inline-flex items-center justify-center px-4 py-1 mb-2 rounded-md mr-2"
+                >
+                  {tag}
+                </span>
+              ))}
               {isEditable ? (
                 <div className="mt-10">
                   <Link to={`/posts/${_id}/edit`} className="m-3">
@@ -95,21 +113,15 @@ const Post = ({
               ) : (
                 ''
               )}
-              <Comments
-                user={user}
-                id={_id}
-                imageUrl={imageUrl}
-                comments={comments}
-                onDelete={handleDelete}
-                onEdit={handleEdit}
-              />
+              <Comments user={user} id={_id} imageUrl={imageUrl} comments={comments} />
             </article>
+            <BackToTop />
           </div>
-        </main>
+        </>
       ) : (
         <div
           key={uuidv4()}
-          className="relative block w-full lg:flex mb-2 rounded-tr-md rounded-tl-md shadow-md hover:shadow-lg dark:hover:bg-gray-800 dark:border-b-2 dark:border-b-slate-700"
+          className="relative block w-full lg:flex mb-2 rounded-tr-md rounded-tl-md shadow-md hover:shadow-lg dark:hover:bg-zinc-800 dark:border-b-2 dark:border-b-slate-700"
           to={`/posts/${_id}`}
         >
           <Modal text="Удалить статью?" onRemove={onClickRemove} />

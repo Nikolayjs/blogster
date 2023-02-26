@@ -88,7 +88,7 @@ const UserInfo = () => {
 
   if (posts.items.length === 0) {
     return (
-      <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900">
+      <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-zinc-900">
         <div className="flex justify-between px-4 mx-auto max-w-screen-2xl ">
           <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
             <Skeleton />
@@ -99,7 +99,7 @@ const UserInfo = () => {
   }
 
   return (
-    <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 min-w-4xl mx-auto">
+    <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-zinc-900 min-w-4xl mx-auto">
       <div className="flex max-xl:inline-block justify-center m-auto px-4 mx-auto w-full">
         {isEdit ? (
           <>
@@ -121,6 +121,7 @@ const UserInfo = () => {
             </div>
             <article className="w-3/6 max-xl:w-full format format-sm sm:format-base lg:format-lg format-blue dark:format-invert mt-5">
               <div className="inline-block min-w-full">
+                <h3 className="font-bold mb-3">Имя</h3>
                 <TextField
                   inputId="name"
                   id="name"
@@ -153,7 +154,9 @@ const UserInfo = () => {
                 <Button onClick={onSubmit}>Сохранить изменения</Button>
                 <Button onClick={handleEdit}>Отмена</Button>
               </div>
+
               <h3 className="mt-5">Мои статьи:</h3>
+
               <ul className="divide-y divide-gray-200 dark:divide-gray-700 mt-5">
                 {myPosts.map((post) => (
                   <li
@@ -205,7 +208,8 @@ const UserInfo = () => {
             </div>
             <article className="w-3/6 max-xl:w-full format format-sm sm:format-base lg:format-lg format-blue dark:format-invert mt-5">
               <div className="inline-block min-w-full">
-                <h3 className="font-bold mb-5">{fullName}</h3>
+                <h3 className="font-bold">Имя</h3>
+                <p className="text-lg font-semibold">{fullName}</p>
               </div>
               <div className="w-auto">
                 <h3 className="font-bold">О себе</h3>

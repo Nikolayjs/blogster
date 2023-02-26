@@ -50,7 +50,7 @@ const Comments = ({ id }) => {
     setContent(`${userName}, `);
   };
   return (
-    <section className="bg-white dark:bg-gray-900 py-8 lg:py-16">
+    <section className="py-8 lg:py-16">
       <div className="max-w-2xl mx-auto px-4">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">
@@ -58,7 +58,7 @@ const Comments = ({ id }) => {
           </h2>
         </div>
         <form className="mb-6">
-          <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+          <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-stone-800 dark:border-neutral-700">
             <label htmlFor="comment" className="sr-only">
               Ваш комментарий
             </label>
@@ -67,7 +67,7 @@ const Comments = ({ id }) => {
               value={content}
               id="comment"
               rows="6"
-              className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
+              className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-stone-800"
               placeholder="Напиши комментарий"
               required
             ></textarea>
@@ -82,7 +82,7 @@ const Comments = ({ id }) => {
         </form>
         {comments.items.map((comment) => (
           <article
-            className="p-6 text-base bg-white dark:bg-gray-900 border-b-2 border-slate-300"
+            className="p-6 text-base bg-white dark:bg-zinc-900 border-b-2 border-slate-300"
             key={comment._id}
           >
             <footer className="flex justify-between items-center mb-2">

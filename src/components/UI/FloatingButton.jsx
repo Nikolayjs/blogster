@@ -7,7 +7,7 @@ const FloatingButton = ({ link }) => {
   return (
     <>
       {link.length === 1 ? (
-        <div onClick={() => setToggle(!toggle)} className="fixed right-6 bottom-6 group">
+        <div onClick={() => setToggle(!toggle)} className="fixed right-6 bottom-6 group z-10">
           <Link to={link[0].url}>
             <button
               type="button"

@@ -7,8 +7,10 @@ import Button from '../UI/Button';
 import IconDelete from '../Icons/IconDelete';
 import IconEdit from '../Icons/IconEdit';
 import Modal from '../UI/Modal';
-
+import Prism from 'prismjs';
+import '../../themes/prism.css';
 import { setModal, setConfirm, setId } from '../../redux/slices/modal';
+import BackToTop from '../UI/BackToTop';
 
 const Note = ({
   _id,
@@ -17,11 +19,14 @@ const Note = ({
   createdAt,
   imageUrl,
   user,
-  tags,
   children,
   isFullNote,
   isLoading,
 }) => {
+  React.useEffect(() => {
+    Prism.highlightAll();
+  }, [children]);
+
   const date = new Date(createdAt);
   const dispatch = useDispatch();
   const modal = useSelector((state) => state.modal);
@@ -43,7 +48,7 @@ const Note = ({
   return (
     <>
       {isFullNote ? (
-        <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900">
+        <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 ">
           <Modal text="Удалить заметку?" />
           <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
             <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
@@ -76,6 +81,7 @@ const Note = ({
                 <Button onClick={handleModal}>Удалить</Button>
               </div>
             </article>
+            <BackToTop />
           </div>
         </main>
       ) : (

@@ -8,6 +8,7 @@ import TextField from '../UI/TextField';
 import SimpleMdeReact from 'react-simplemde-editor';
 import ReactMarkdown from 'react-markdown';
 import ReactDOMServer from 'react-dom/server';
+import { useEffect } from 'react';
 
 const AddNote = () => {
   const { id } = useParams();
@@ -17,7 +18,6 @@ const AddNote = () => {
   const isAuth = useSelector(selectIsAuth);
   const [content, setContent] = React.useState('');
   const [title, setTitle] = React.useState('');
-  const [tags, setTags] = React.useState([]);
   const inputFileRef = React.useRef(null);
   const isEditing = Boolean(id);
   const [previewUpdate, setPreviewUpdate] = React.useState(false);
@@ -38,17 +38,16 @@ const AddNote = () => {
   const onClickRemove = () => {
     setImageUrl('');
   };
-  const preview = document.querySelector('.preview');
   const onChange = React.useCallback(
     (value) => {
       setContent(value);
-      preview.addEventListener('click', handlePreview);
+      const code = document.querySelector('.preview ');
+      code.addEventListener('click', () => {
+        setPreviewUpdate(!previewUpdate);
+      });
     },
     [previewUpdate]
   );
-  const handlePreview = () => {
-    setPreviewUpdate(!previewUpdate);
-  };
   const onSubmit = async () => {
     try {
       setIsLoading(true);
@@ -56,7 +55,6 @@ const AddNote = () => {
         title,
         content,
         imageUrl,
-        tags: tags.split(','),
       };
       const { data } = isEditing
         ? await axios.patch(`/notes/${id}`, fields)
@@ -75,7 +73,6 @@ const AddNote = () => {
         setTitle(data.title);
         setContent(data.content);
         setImageUrl(data.imageUrl);
-        setTags(data.tags.join(','));
       });
     }
   }, [id]);
@@ -87,14 +84,9 @@ const AddNote = () => {
       autofocus: true,
       placeholder: 'Введите текст',
       status: ['lines', 'words'],
-
+      sideBySideFullscreen: false,
       previewRender() {
         return ReactDOMServer.renderToString(<ReactMarkdown children={content} />);
-      },
-      autosave: {
-        uniqueId: 'uniqueId',
-        enabled: true,
-        delay: 1000,
       },
     }),
     [previewUpdate]
@@ -106,17 +98,9 @@ const AddNote = () => {
 
   return (
     <article className="mx-auto w-full max-w-5xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert mt-10">
-      <Button className="mr-3 mb-2 w-1/4" onClick={() => inputFileRef.current.click()}>
-        Загрузить превью
-      </Button>
       <input ref={inputFileRef} type="file" onChange={handleChangeFile} hidden />
       {imageUrl && (
-        <>
-          <Button className="mb-2" onClick={onClickRemove}>
-            Удалить
-          </Button>
-          <img src={`http://localhost:4000${imageUrl}`} className="w-full mb-10" alt={title} />
-        </>
+        <img src={`http://localhost:4000${imageUrl}`} className="w-full mb-10" alt={title} />
       )}
 
       <div className="flex flex-col justify-center items-center mt-10">
@@ -127,20 +111,21 @@ const AddNote = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <TextField
-          label="Теги"
-          inputId="tags"
-          className="mt-5 text-1xl"
-          value={tags}
-          onChange={(e) => setTags(e.target.value)}
-        />
-        <SimpleMdeReact value={content} onChange={onChange} options={options} className="w-full" />
-        <div className="flex">
-          <Button onClick={onSubmit}>{isEditing ? 'Сохранить' : 'Опубликовать'}</Button>
-          <Link className="ml-3" to={`/notes/${id}`}>
-            <Button>Отмена</Button>
-          </Link>
+        <div className="flex flex-row w-full justify-center mb-3">
+          <Button className="mr-3" onClick={() => inputFileRef.current.click()}>
+            Загрузить превью
+          </Button>
+          <Button onClick={onClickRemove}>Удалить превью</Button>
         </div>
+        <SimpleMdeReact value={content} onChange={onChange} options={options} className="w-full" />
+        {content.length > 0 && (
+          <div className="flex">
+            <Button onClick={onSubmit}>{isEditing ? 'Сохранить' : 'Опубликовать'}</Button>
+            <Link className="ml-3" to={`/notes/${id}`}>
+              <Button>Отмена</Button>
+            </Link>
+          </div>
+        )}
       </div>
     </article>
   );

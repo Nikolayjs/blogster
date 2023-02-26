@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllTags, fetchPosts, fetchTags } from '../../../redux/slices/posts';
-import LastPosts from './LastPosts';
 import Pagination from '../../UI/Pagination';
 import Tags from '../../UI/Tags';
 import PostSkeleton from '../../Post/PostSkeleton';
@@ -12,16 +11,16 @@ import paginate from '../../../utils/paginate';
 import Button from '../../UI/Button';
 import { useContent } from '../../../hooks/useContent';
 import TextField from '../../UI/TextField';
+import { useNavigate } from 'react-router-dom';
+import LastPosts from './LastPosts';
 
 const Posts = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = React.useState(1);
   const userData = useSelector((state) => state.auth.data);
-  const { posts, tags, allTags } = useSelector((state) => state.posts);
-  const [viewTags, setViewTags] = React.useState(false);
-  const [filteredTags, setFilteredTags] = React.useState(allTags.items);
+  const { posts, tags } = useSelector((state) => state.posts);
   const [filter, setFilter] = React.useState({ sort: '', filter: '', query: '' });
-  const [tag, setTag] = React.useState('');
   const sortedAndSearchedContent = useContent(
     posts.items,
     filter.sort,
@@ -29,20 +28,15 @@ const Posts = () => {
     filter.query
   );
   const pageSize = 10;
+
   React.useEffect(() => {
     dispatch(fetchPosts());
     dispatch(fetchTags());
-    dispatch(fetchAllTags());
   }, [dispatch]);
+
   const handlePageChange = (pageIndex) => {
     setCurrentPage(pageIndex);
   };
-
-  React.useEffect(() => {
-    setFilteredTags(
-      allTags?.items.filter((el) => el.toLocaleLowerCase().includes(tag.toLocaleLowerCase()))
-    );
-  }, [tag, allTags]);
 
   if (posts.items.length === 0) {
     return (
@@ -55,12 +49,15 @@ const Posts = () => {
     );
   }
 
+  const goToTags = () => {
+    navigate('/tags/all-tags');
+  };
   const count = sortedAndSearchedContent.length;
   const postsCrop = paginate(sortedAndSearchedContent, currentPage, pageSize);
   return (
     <>
       <div className="max-w-screen-xl mx-auto grid grid-rows-layout mt-20">
-        <LastPosts posts={sortedAndSearchedContent} />
+        <LastPosts posts={posts.items} />
         <main className="lg:flex">
           <>
             <div className="w-full lg:w-2/3">
@@ -71,7 +68,7 @@ const Posts = () => {
                   value={filter.query}
                   onChange={(e) => setFilter({ ...filter, query: e.target.value })}
                 />
-                {postsCrop.map((post) => {
+                {postsCrop?.map((post) => {
                   return (
                     <Post
                       key={post._id}
@@ -101,31 +98,16 @@ const Posts = () => {
                 currentPage={currentPage}
               />
             </div>
-            {!viewTags ? (
-              <div className="w-full lg:w-1/3 px-2 md:flex md:space-x-6 lg:block lg:space-x-0 justify-center align-middle text-center">
-                <h5 className="font-bold text-lg uppercase dark:text-white text-gray-700 mb-2">
-                  Последние теги
-                </h5>
-                <Tags tags={tags.items} filter={filter} handleTag={setFilter} />
-                <Button onClick={() => setViewTags(!viewTags)}>Показать все теги</Button>
-              </div>
-            ) : (
-              <div className="w-full lg:w-1/3 px-2 md:flex md:space-x-6 lg:block lg:space-x-0 justify-center align-middle text-center">
-                <div className="text-left">
-                  <TextField
-                    type="text"
-                    label="Поиск по тегам"
-                    value={tag}
-                    onChange={(e) => setTag(e.target.value)}
-                  />
-                </div>
-                {filteredTags.length !== 0 && (
-                  <Tags tags={filteredTags} filter={filter} handleTag={setFilter} />
-                )}
 
-                <Button onClick={() => setViewTags(!viewTags)}>Показать последние теги</Button>
-              </div>
-            )}
+            <div className="w-ful lg:w-1/3 px-2 md:flex flex-col md:space-x-6 lg:block lg:space-x-0 justify-center align-middle text-center items-center">
+              <h5 className="font-bold mt-3 text-lg uppercase dark:text-white text-gray-700 mb-2">
+                Последние теги
+              </h5>
+              <Tags tags={tags.items} filter={filter} handleTag={setFilter} posts={posts} />
+              <Button className="md:w-1/2" onClick={goToTags}>
+                Показать все теги
+              </Button>
+            </div>
           </>
         </main>
       </div>

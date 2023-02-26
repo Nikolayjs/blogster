@@ -17,7 +17,7 @@ const Menu = ({ option }) => {
     <div className="px-4 pt-4" onMouseLeave={handleClose}>
       <button
         onClick={handleOpen}
-        className="inline-block absolute right-6 bottom-auto text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700  focus:outline-none  rounded-lg text-sm p-1.5"
+        className="inline-block absolute right-6 bottom-10 lg:bottom-auto md:bottom-10 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-zinc-700 focus:outline-none rounded-lg text-sm p-1.5"
         type="button"
       >
         <span className="sr-only">Открыть меню</span>
@@ -35,7 +35,7 @@ const Menu = ({ option }) => {
         id="dropdown"
         className={`z-10 ${
           isOpen ? '' : 'hidden'
-        } text-base list-none bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 absolute right-1 top-12`}
+        } text-base list-none bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-zinc-700 absolute right-1 lg:top-12 md:top-80 top-64`}
       >
         <ul>
           {option.map((el) => (
@@ -43,14 +43,14 @@ const Menu = ({ option }) => {
               {el.link ? (
                 <Link
                   to={el.link}
-                  className="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  className="cursor-pointer hover:rounded block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 dark:hover:text-white"
                 >
                   {el.name}
                 </Link>
               ) : (
                 <Link
                   onClick={() => el.func(el.id)}
-                  className="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  className="cursor-pointer mt-2 hover:rounded block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 dark:hover:text-white"
                 >
                   {el.name}
                 </Link>

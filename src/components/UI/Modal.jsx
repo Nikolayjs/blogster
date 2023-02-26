@@ -1,27 +1,36 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { setModal } from '../../redux/slices/modal';
 
-const Modal = ({ text, onRemove, id }) => {
+const Modal = ({ text, onRemove }) => {
   const dispatch = useDispatch();
   const modal = useSelector((state) => state.modal);
+  const rootEl = React.useRef();
   const handleCloseModal = () => {
     dispatch(setModal());
   };
+  React.useEffect(() => {
+    if (modal.isOpen) {
+      const onClick = (e) => rootEl.current.contains(e.target) || dispatch(setModal());
+      document.addEventListener('click', onClick);
+      return () => document.removeEventListener('click', onClick);
+    }
+  }, []);
+
   return (
     <>
       <div
         className={`${
           !modal.isOpen ? 'hidden' : ''
         } overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full flex backdrop-blur-sm`}
+        ref={rootEl}
       >
-        <div className="relative w-full max-w-md h-full md:h-auto">
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div className="relative w-full max-w-md h-full md:h-auto backdrop-blur-none">
+          <div className="relative bg-white rounded-lg dark:bg-zinc-700">
             <button
               onClick={handleCloseModal}
               type="button"
-              className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+              className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-zinc-800 dark:hover:text-white"
             >
               <svg
                 aria-hidden="true"
@@ -43,14 +52,14 @@ const Modal = ({ text, onRemove, id }) => {
               <button
                 onClick={onRemove}
                 type="button"
-                className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-zinc-700 dark:text-gray-300 dark:border-zinc-600 dark:hover:text-white dark:hover:bg-zinc-600 dark:focus:ring-zinc-600"
               >
                 Да
               </button>
               <button
                 onClick={handleCloseModal}
                 type="button"
-                className="ml-5 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                className="ml-5 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-zinc-700 dark:text-gray-300 dark:border-zinc-600 dark:hover:text-white dark:hover:bg-zinc-600 dark:focus:ring-zinc-600"
               >
                 Нет
               </button>

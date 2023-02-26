@@ -2,12 +2,12 @@ import React from 'react';
 
 const PostSkeleton = () => {
   return (
-    <div className="relative block w-2/3 mt-20 m-auto lg:flex mb-10 rounded-tr-md rounded-tl-md hover:bg-gray-800 border-b-2 border-b-slate-300 dark:border-b-slate-700">
+    <div className="relative block w-2/3 mt-20 m-auto lg:flex mb-10 rounded-tr-md rounded-tl-md hover:bg-zinc-800 border-b-2 border-b-slate-300 dark:border-b-neutral-700">
       <div
         role="status"
         className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center"
       >
-        <div className="flex justify-center items-center w-full h-48 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
+        <div className="flex justify-center items-center w-full h-48 bg-gray-300 rounded sm:w-96 dark:bg-zinc-700">
           <svg
             className="w-12 h-12 text-gray-200"
             xmlns="http://www.w3.org/2000/svg"
@@ -19,12 +19,12 @@ const PostSkeleton = () => {
           </svg>
         </div>
         <div className="w-full">
-          <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
-          <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[480px] mb-2.5"></div>
-          <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
-          <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[440px] mb-2.5"></div>
-          <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[460px] mb-2.5"></div>
-          <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+          <div className="h-2.5 bg-gray-200 rounded-full dark:bg-zinc-700 w-48 mb-4"></div>
+          <div className="h-2 bg-gray-200 rounded-full dark:bg-zinc-700 max-w-[480px] mb-2.5"></div>
+          <div className="h-2 bg-gray-200 rounded-full dark:bg-zinc-700 mb-2.5"></div>
+          <div className="h-2 bg-gray-200 rounded-full dark:bg-zinc-700 max-w-[440px] mb-2.5"></div>
+          <div className="h-2 bg-gray-200 rounded-full dark:bg-zinc-700 max-w-[460px] mb-2.5"></div>
+          <div className="h-2 bg-gray-200 rounded-full dark:bg-zinc-700 max-w-[360px]"></div>
         </div>
         <span className="sr-only">Loading...</span>
       </div>
